@@ -1,0 +1,4 @@
+C:\Users\sekul\OneDrive\Desktop\NewsSystemMS\NewsSystemMS\Core\Core.Infrastructure\obj\Debug\netcoreapp3.1\Core.Infrastructure.csprojAssemblyReference.cache
+C:\Users\sekul\OneDrive\Desktop\NewsSystemMS\NewsSystemMS\Core\Core.Infrastructure\obj\Debug\netcoreapp3.1\Core.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\sekul\OneDrive\Desktop\NewsSystemMS\NewsSystemMS\Core\Core.Infrastructure\obj\Debug\netcoreapp3.1\Core.Infrastructure.AssemblyInfo.cs
+C:\Users\sekul\OneDrive\Desktop\NewsSystemMS\NewsSystemMS\Core\Core.Infrastructure\obj\Debug\netcoreapp3.1\Core.Infrastructure.csproj.CoreCompileInputs.cache
