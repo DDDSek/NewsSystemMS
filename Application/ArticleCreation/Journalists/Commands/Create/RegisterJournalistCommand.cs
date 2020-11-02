@@ -1,0 +1,65 @@
+﻿namespace NewsSystem.Application.ArticleCreation.Journalists.Commands.Create
+{
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using MediatR;
+
+    using Application.Common;
+    using Application.Common.Contracts;
+    using Application.ArticleCreation.Journalists;
+    using Domain.ArticleCreation.Factories.Journalists;
+    using NewsSystem.Application.ArticleCreation.Journalists.Commands.Common;
+    using static NewsSystem.Application.Common.ConstantsApplication;
+
+    public class RegisterJournalistCommand : JournalistCommand<RegisterJournalistCommand>, IRequest<Result>
+    {
+        public class RegisterJournalistCommandHandler : IRequestHandler<RegisterJournalistCommand, Result>
+        {
+            private readonly ICurrentUser currentUser;
+            //private readonly IIdentity identity;
+            private readonly IJournalistFactory journalistFactory;
+            private readonly IJournalistRepository journalistRepository;
+
+            public RegisterJournalistCommandHandler(
+                ICurrentUser currentUser,
+               // IIdentity identity,
+                IJournalistFactory journalistFactory,
+                IJournalistRepository journalistRepository)
+            {
+                this.currentUser = currentUser;
+                //this.identity = identity;
+                this.journalistFactory = journalistFactory;
+                this.journalistRepository = journalistRepository;
+            }
+
+            public async Task<Result> Handle(
+                RegisterJournalistCommand request,
+                CancellationToken cancellationToken)
+            {
+                var exist = await this.journalistRepository.Existed(this.currentUser.UserId, cancellationToken);
+
+                if (exist)
+                {
+                    return Journalist.Exist;
+                }
+
+                var journalist = this.journalistFactory
+                    .WithUserId(this.currentUser.UserId)
+                    .WithNickName(request.NickName)
+                    .WithAddress(request.Address)
+                    .WithPhoneNumber(request.PhoneNumber)
+                    .Build();
+
+
+                journalist.AddRole(this.currentUser.UserId);
+
+                await this.journalistRepository.Save(journalist, cancellationToken: cancellationToken);
+
+                // await this.identity.AddToRoleJournalist(this.currentUser.UserId); TEST ROLES WITH EVENTS
+
+                return Result.Success;
+            }
+        }
+    }
+}
