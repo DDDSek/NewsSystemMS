@@ -28,6 +28,6 @@
             => this.Mediator.Send(request).ToActionResult();
 
         protected Task<ActionResult<TResult>> Send<TResult>(IRequest<Result<TResult>> request)
-            => this.Mediator.Send(request).ToActionResult();
+            => this.Mediator.Send(request).ToActionResult(); // 
     }
 }
